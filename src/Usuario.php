@@ -17,6 +17,20 @@ class Usuario {
 
     /* Métodos para rotinaS DE CRUD no banco */
 
+    public function listar():array{
+        $sql = "SELECT * FROM usuarios ORDER BY nome";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao listar usuários: ".$erro->getMessage());
+        }    
+    
+        return $resultado;
+    } 
+
+
     // INSERT de Usuario
     public function inserir():void{
         $sql = "INSERT INTO usuarios(nome, email, senha, tipo)
