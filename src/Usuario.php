@@ -48,10 +48,74 @@ class Usuario {
         }
     }
 
+// SELECT de Usuário
+public function listarUm():array {
+    $sql = "SELECT * FROM usuarios WHERE id = :id";
+
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $erro) {
+        die("Erro ao carregar dados: ".$erro->getMessage());
+    }
+
+    return $resultado;
+}
+
+// UPDATE de Usuário
+public function atualizar():void {
+    $sql = "UPDATE usuarios SET nome = :nome, email = :email,
+    senha = :senha, tipo = :tipo WHERE id = :id";
+
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
+        $consulta->bindValue(":email", $this->email, PDO::PARAM_STR);
+        $consulta->bindValue(":senha", $this->senha, PDO::PARAM_STR);
+        $consulta->bindValue(":tipo", $this->tipo, PDO::PARAM_STR);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro ao atualizar usuário: ".$erro->getMessage());
+    }
+}
+
+// DELETE de Usuário
+public function excluir():void {
+    $sql = "DELETE FROM usuarios WHERE id = :id";
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro ao excluir usuário: ".$erro->getMessage());
+    }
+}
+
+
     /* Métodos para codificação e comparação de senha */
 
     public function codificaSenha(string $senha):string{
         return password_hash($senha, PASSWORD_DEFAULT);
+    }
+
+    public function verificaSenha(
+        string $senhaFormulario, string $senhaBanco):string {
+        
+        /* Usamos a função password_verify para COMPARAR
+        as duas senha: a digitada no formulário e a existente
+        no banco de dados. */
+        if(password_verify($senhaFormulario, $senhaBanco)){
+            /* Se forem IGUAIS, mantemos a senha já existente,
+            sem qualquer modificação. */
+            return $senhaBanco;
+        } else {
+            /* Se forem DIFERENTES, então a nova senha (ou seja,
+            a que foi digitada no formulário) DEVE ser codificada. */
+            return $this->codificaSenha($senhaFormulario);
+        }
     }
     
     public function getId(): int
