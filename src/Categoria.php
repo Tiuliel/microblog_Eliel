@@ -59,7 +59,7 @@ class Categoria {
             $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
             $consulta->execute();
         } catch (Exception $erro) {
-            die("Erro ao atualizar usuário: ".$erro->getMessage());
+            die("Erro ao atualizar categoria: ".$erro->getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ class Categoria {
             $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
             $consulta->execute();
         } catch (Exception $erro) {
-            die("Erro ao excluir usuário: ".$erro->getMessage());
+            die("Erro ao excluir categoria: ".$erro->getMessage());
         }
     }
 
