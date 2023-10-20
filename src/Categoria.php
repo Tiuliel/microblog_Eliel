@@ -4,7 +4,7 @@ use PDO, Exception;
 
 class Categoria {
     private int $id;
-    private int $nome;
+    private string $nome;
     private PDO $conexao;
 
     public function __construct()
@@ -89,13 +89,13 @@ class Categoria {
     }
 
     
-    public function getNome(): int
+    public function getNome(): string
     {
         return $this->nome;
     }
 
     
-    public function setNome(int $nome): self
+    public function setNome(string $nome): self
     {
         $this->nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
 

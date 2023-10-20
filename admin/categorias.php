@@ -1,6 +1,6 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
-use microblog\Categoria;
+use Microblog\Categoria;
 $sessao->verificaAcessoAdmin();
 $categoria = new Categoria;
 $listaDeCategoria = $categoria->ler();
