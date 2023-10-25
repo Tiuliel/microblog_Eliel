@@ -61,17 +61,46 @@ final class Noticia {
     }
 
 public function listar():array{
-    // SQL para o usuário ADMIN
-    sql = "SELECT 
+
+    // Se o tipo de usuário logado for admin
+    if( $this->usuario->getTipo() === "admin" ){
+    // considere o SQL abaixo (pega tudo de todos)
+    $sql = "SELECT 
                 noticias.id,
                 noticias.titulo,
                 noticias.data,
                 usuarios.nome as autor,
                 noticias.destaque
                 FROM noticias INNER JOIN usuarios
-                ON noticias.usuario_id = 
+                ON noticias.usuario_id = usuarios.id ORDER BY data DESC
                 ";
+}  else {
+    // Senão, considere o SQL abaixo (pega somente referente ao editor)
+    $sql = "SELECT
+            id, titulo, data, destaque 
+            FROM noticias WHERE usuario_id = :usuario_id
+            ORDER BY data DESC";
 }
+
+try {
+    $consulta = $this->conexao->prepare($sql);
+
+    if( $this->usuario->getTipo() !== "admin" ){
+        $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+    }
+    
+    $consulta->execute();
+    $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (Exception $erro) {
+    die("Erro ao carregar notícias: ".$erro->getMessage());
+}
+    return $resultado;
+
+}
+
+
+
 
     /* Método para upload de foto */
     public function upload(array $arquivo):void {
