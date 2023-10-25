@@ -23,7 +23,19 @@ final class Categoria {
         }
         return $resultado;
     }
+    public function listar():array {
+        $sql = "SELECT * FROM categorias ORDER BY nome";
 
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao listar categorias: ".$erro->getMessage());
+        }
+
+        return $resultado;
+    }
     public function lerUm():array {
         $sql = "SELECT * FROM categorias WHERE id = :id";
 
