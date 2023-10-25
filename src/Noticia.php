@@ -60,7 +60,18 @@ final class Noticia {
         }
     }
 
-
+public function listar():array{
+    // SQL para o usuário ADMIN
+    sql = "SELECT 
+                noticias.id,
+                noticias.titulo,
+                noticias.data,
+                usuarios.nome as autor,
+                noticias.destaque
+                FROM noticias INNER JOIN usuarios
+                ON noticias.usuario_id = 
+                ";
+}
 
     /* Método para upload de foto */
     public function upload(array $arquivo):void {
