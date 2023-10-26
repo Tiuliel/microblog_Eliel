@@ -3,6 +3,7 @@ use Microblog\{ControleDeAcesso, Usuario, Utilitarios};
 
 require_once "inc/cabecalho.php";
 
+
 /* Programação das mensagens de feedback (campos obrigatórios,
 dados incorretos, saiu do sistema etc) */
 if( isset($_GET["campos_obrigatorios"]) ){
@@ -79,6 +80,7 @@ if(isset($_POST['entrar'])){
 
 
 <?php 
+require_once "inc/todas.php";
 require_once "inc/rodape.php";
 ?>
 

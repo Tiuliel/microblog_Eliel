@@ -1,5 +1,6 @@
 <?php 
 require_once "inc/cabecalho.php";
+
 ?>
 
 
@@ -41,5 +42,6 @@ require_once "inc/cabecalho.php";
 
 <?php 
 require_once "inc/rodape.php";
+require_once "inc/todas.php";
 ?>
 
