@@ -12,6 +12,11 @@ public static function dump(array | bool | object $dados):void {
     var_dump($dados);
     echo "</pre>";
 }
+
+public static function formataData(string $data):string{
+    return date("d/m/y H:i", strtotime($data));
+}
+
 }
     
 
