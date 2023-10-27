@@ -52,11 +52,16 @@ $listaDeCategorias = $noticia->categoria->listar();
           <a class="nav-link" href="admin/index.php"><i class="bi bi-lock-fill"></i> Área administrativa</a>
         </li>
       </ul>
+<div class="position-relative" >
+      <form autocomplete="off" class="d-flex" action="resultados.php" method="POST" onsubmit="return false">
+        <input id="campo-busca" name="busca" class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
 
-      <form autocomplete="off" class="d-flex" action="resultados.php" method="GET">
-        <input name="busca" class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
-        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">OK</button>
+        <div id="resultados" class="mt-3 position-absolute container bg-white shadow-lg p-3">
+
+        </div>
+        
       </form>
+    </div>
     </div>
   </div>
 </nav>
