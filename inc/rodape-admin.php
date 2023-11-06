@@ -1,4 +1,4 @@
-    </div>
+</div>
 </main>
 
 <footer class="footer mt-auto py-3 bg-dark border-top">
@@ -13,3 +13,6 @@
 
 </body>
 </html>
+<?php
+ob_end_flush();
+?>
